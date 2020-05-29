@@ -102,8 +102,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-backend/.env
-backend/.venv
+/backend/.env
+/backend/.venv
 env/
 venv/
 ENV/
@@ -129,9 +129,9 @@ dmypy.json
 .pyre/
 
 # dependencies
-frontend/node_modules
-frontend/.pnp
-.pnp.js
+node_modules
+/frontend/.pnp
+/.pnp.js
 
 # testing
 /coverage
@@ -140,12 +140,12 @@ frontend/.pnp
 /build
 
 # misc
-frontend/.DS_Store
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+/frontend/.DS_Store
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
 
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
