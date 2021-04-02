@@ -1,41 +1,40 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import logo from './logo.svg';
 import './App.css';
+
+var Latex = require('react-latex');
+
+function replacer(key, value) {
+  return value.replace('\\', '');
+}
 
 class App extends React.Component {
   constructor(props) {
   super(props);
-  // Don't call this.setState() here!
   this.state = {
-    equation: "",
-    method: "bisection"
+    equation: null,
+    variable: null,
+    loading: false,
+    result: null,
+    latex_result: null
   };
   this.onSubmit = this.onSubmit.bind(this);
   this.handleChange = this.handleChange.bind(this);
   }
 
   async onSubmit(event) {
+    this.state.loading = true;
     event.preventDefault();
     const equation = this.state.equation;
-    const method = this.state.method;
-    const url = `/rootfinder/${method}/${equation}`;
-    console.log(url);
-    try {
-      const response = await fetch(url, {
+    const variable = this.state.variable;
+    const url = `/rootfinder/${equation}/${variable}`;
+    const response = await fetch(url, {
         method: "GET"
-      });
-      const response_json = await response.json();
-      console.log(response_json);
-      const { success, data } = {
-        success: response.status === 200,
-        data: response_json
-      };
-
-      success ? console.log(response) : this.handleError(data);
-    } catch (err) {
-      return console.log(`SERVER ERROR: Something went wrong. ${err}`);
-    }
+    });
+    const data = await response.json();
+    console.log(data);
+    var nonescaped_latex = JSON.stringify(data.solution_latex, replacer)
+    console.log(nonescaped_latex);
+    this.setState({result: data.solution, latex_result: nonescaped_latex, loading: false})
   }
 
   handleChange(event){
@@ -49,47 +48,43 @@ class App extends React.Component {
   }
 
   render() {
+    let user_result = null;
+    if (this.state.result == null) {
+      user_result = <div></div>;
+    } else {
+      user_result = <Latex>{this.state.latex_result}</Latex>;
+    }
     return (
       <body>
         <div className="App">
           <header className="App-header">
             Welcome to the Rootfinder App!
           </header>
-          <p className="App-instructions">Type an equation to find the roots of</p>
-          <form className="App-form">
-           <label form="equation" /><br/>
+
+          <p className="App-instructions">Type in an equation to find the roots of, with respect to a variable</p>
+          <form className="App-form" onkeydown="return event.key != 'Enter';">
+           <label form="equation" />
            <input className="input" type="text" name="equation" value={this.state.value}
            onChange={this.handleChange} placeholder="Ex: 10x^2 - 3x^3"/>
-           <br/><br/>
-           <p className="App-instructions"> Numerical method to use </p>
-           <select id="method" name="method" value={this.state.value} onChange={this.handleChange}>
-             <option value="bisection">Bisection Method</option>
-             <option value="fixedpoint">Fixedpoint Method</option>
-             <option value="newtons">Newtons Method</option>
-             <option value="secant">Secant Method</option>
-           </select>
-           <button type="button" onClick={this.onSubmit}>
+           &nbsp;&nbsp;
+           <label form="variable"/>
+           <input className="var-input" type="text" name="variable" value={this.state.value}
+           onChange={this.handleChange} placeholder="x"/>
+           <br />
+           <button className="submit-button" type="button" onClick={this.onSubmit}>
             Submit
            </button>
          </form>
         </div>
         <div className="App-results">
-          Roots of the equation:
+          {user_result}
         </div>
         <div>
           <header className="Info-header">
           How does it work?
           </header>
           <p className="Info-text">
-          Depending on the numerical method chosen, the submit button sends a GET request to the backend API.
-          The API has four endpoints, one for each method. This was built in mind that the API can stand alone.
-          Each endpoint parses the input and runs the numerical method
-          on the input with some default parameters. These parameters depend on the method, but shared default parameters
-          are the number of iterations (50 iterations) and the tolerance of error (0.0001). The API then returns a
-          response to our frontend, which is shown.
-          <br/> <br/>
-          References for the numerical methods are from the text
-          <strong> Numerical Analysis 9th Ed. by Burden & Faires, Ch 2. </strong>
+            Text here
           </p>
         </div>
         <div className="footer">
