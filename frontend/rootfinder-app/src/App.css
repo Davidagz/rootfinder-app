@@ -1,17 +1,6 @@
 .App {
-  padding-top: 30px;
+  padding: 30px 30px 30px 30px;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-instructions {
@@ -39,7 +28,7 @@
 }
 
 .App-results {
-    min-height: 30vh;
+    min-height: 15vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,14 +37,29 @@
     color: white;
 }
 
+.App-error {
+  min-height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(243, 8, 8);
+}s
+
 .App-link {
   color: #61dafb;
+}
+
+.Info {
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .Info-text{
   min-height: 1vh;
   color: white;
-  font-size: calc(5px + 1vmin);
+  font-size: calc(10px + 1vmin);
 }
 
 .Info-header{
@@ -70,14 +74,12 @@
 
 .footer {
   position: static;
-  padding: 1px;
-  left: 0;
-  bottom: 0;
+  padding-top: 4px;
   width: 100%;
   background-color: #2a3a54;
   color: white;
   text-align: center;
-  min-height: 5vh;
+  min-height: 15vh;
 }
 
 .input[type=text] {
