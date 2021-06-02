@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import Header from './components/header'
+import Footer from './components/footer/footer'
+import InputForm from './components/form'
 
 var Latex = require('react-latex');
 
@@ -15,13 +18,13 @@ class App extends React.Component {
     errorString: null,
     waitingOnUser: true,
   };
-  this.onSubmit = this.onSubmit.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
   this.handleChange = this.handleChange.bind(this);
   this.checkSolutionType = this.checkSolutionType.bind(this);
   this.formatter = this.formatter.bind(this);
   }
 
-  async onSubmit(event) {
+  async handleSubmit(event) {
     this.state.loading = true;
     event.preventDefault();
     let equation = this.state.equation;
@@ -72,11 +75,7 @@ class App extends React.Component {
     return unformatted_solution;
   }
 
-  handleChange(event){
-    const target = event.target;
-    const value = target.value; 
-    const name = target.name;
-
+  handleChange(name, value){
     this.setState({
       [name]: value
     });
@@ -87,59 +86,39 @@ class App extends React.Component {
     let error = this.state.error;
     return (
       <body>
+        <Header />
         <div className="App">
-          <header className="App-header">
-            Welcome to the Rootfinder App!
-          </header>
-
-          <p className="App-instructions">Type in an equation to find the roots of, with respect to a variable</p>
-          <form className="App-form" onkeydown="return event.key != 'Enter';">
-           <label form="equation" />
-           <input className="input" type="text" name="equation" value={this.state.value}
-           onChange={this.handleChange} placeholder="Ex: 10x^2 - 3x^3"/>
-           &nbsp;&nbsp;
-           <label form="variable"/>
-           <input className="var-input" type="text" name="variable" value={this.state.value}
-           onChange={this.handleChange} placeholder="x"/>
-           <br />
-           <button className="submit-button" type="button" onClick={this.onSubmit}>
-            Submit
-           </button>
-         </form>
-        
-        <div className="App-results">
-          <p>{waitingOnUser ? '' : this.state.solutionString}</p>
-          <Latex>{waitingOnUser ? '' : this.state.result}</Latex>
+          <p className="App-instructions">Type in an equation to find the roots of,
+           with respect to a variable</p>
+          <InputForm handleSubmit={this.handleSubmit.bind(this)} onInputChange={this.handleChange.bind(this)}
+          value={this.value}
+          variable={this.variable} equation={this.equation}/>
+          <div className="App-results">
+            <p>{waitingOnUser ? '' : this.state.solutionString}</p>
+            <Latex>{waitingOnUser ? '' : this.state.result}</Latex>
+          </div>
+          <div className="App-error">
+            <p>{error ? this.state.errorString : ''}</p>
+          </div>
+          <div className="Info">
+            <header className="Info-header">
+            Instructions:
+            </header>
+            <p className="Info-text">
+              For syntax, exponents can be entered in the form x^y. The exponential function 
+              can be represented as just e and the logarithmic function can be represented as log(x). Division
+              can be represented with "/", use parenthesis accordingly. Currently upon division by zero,
+              an error will be thrown. <br/> <br/>
+              This app will find the roots (intersection of the equation with the X-axis) of any single-variable
+              equation using the <a href="https://www.sympy.org/en/index.html" target="_blank">Sympy</a> python library
+              There are three types of solutions: a finite set of possible solutions, an interval of valid solutions, 
+              or if there are no solutions found then a conditional set is shown of when solutions could exist. More 
+              documentation can be found <a href="https://docs.sympy.org/latest/tutorial/solvers.html" target="_blank">
+              here.</a>
+            </p>
+          </div>
         </div>
-        <div className="App-error">
-          <p>{error ? this.state.errorString : ''}</p>
-        </div>
-        <div className="Info">
-          <header className="Info-header">
-          Instructions:
-          </header>
-          <p className="Info-text">
-             For syntax, exponents can be entered in the form x^y. The exponential function 
-            can be represented as just e and the logarithmic function can be represented as log(x). Division
-            can be represented with "/", use parenthesis accordingly. Currently upon division by zero,
-            an error will be thrown. <br/> <br/>
-            This app will find the roots (intersection of the equation with the X-axis) of any single-variable
-            equation using the <a href="https://www.sympy.org/en/index.html" target="_blank">Sympy</a> python library
-            There are three types of solutions: a finite set of possible solutions, an interval of valid solutions, 
-            or if there are no solutions found then a conditional set is shown of when solutions could exist. More 
-            documentation can be found <a href="https://docs.sympy.org/latest/tutorial/solvers.html" target="_blank">
-            here.</a>
-          </p>
-        
-        <div className="footer">
-          <p className="Info-text"> Created by David Garza </p>
-          <p className="Info-text"> For any problems found, please create an issue on &nbsp;
-            <a href="https://github.com/Davidagz/rootfinder-app" target="_blank">Github</a>
-            &nbsp; :)
-          </p>
-        </div>
-        </div>
-        </div>
+        <Footer />
       </body>
     );
   }

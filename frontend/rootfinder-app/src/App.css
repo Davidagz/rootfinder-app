@@ -8,16 +8,6 @@
   color: white;
 }
 
-.App-header {
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 3vmin);
-  color: white;
-}
-
 .App-form {
   font-size: calc(20px + 3vmin);
   color: white;
@@ -28,24 +18,22 @@
 }
 
 .App-results {
-    min-height: 15vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
 }
 
 .App-error {
-  min-height: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(243, 8, 8);
-}s
+}
 
 .App-link {
   color: #61dafb;
@@ -57,60 +45,19 @@
 }
 
 .Info-text{
-  min-height: 1vh;
-  color: white;
+  color: black;
   font-size: calc(10px + 1vmin);
 }
 
 .Info-header{
-  min-height: 5vh;
   display: flex;
   flex-direction: column;
   align-items: left;
   justify-content: left;
   font-size: calc(10px + 3vmin);
-  color: white;
+  color: black;
 }
 
-.footer {
-  position: static;
-  padding-top: 4px;
-  width: 100%;
-  background-color: #2a3a54;
-  color: white;
-  text-align: center;
-  min-height: 15vh;
-}
-
-.input[type=text] {
-  font-size: medium;
-  width: 40%;
-  height: 70px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-.var-input[type=text] {
-  width: 15%;
-  height: 70px;
-  padding: 6px 8px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  font-size: large;
-}
-
-a {
-  color: white;
-}
-
-select {
-  width: 40%;
-  height: 50px;
-  border: none;
-  border-radius: 4px;
-  background-color: #f1f1f1;
-}
 
 input[type=text] {
   font-size: medium;
@@ -132,14 +79,4 @@ input[type=text]:-ms-input-placeholder { /* IE (10+?) */
  color:gray;
  font-style:italic;
 }
-button[type=button], input[type=submit], input[type=reset] {
-  background-color: #4CAF50;
-  border: black;
-  width: 56%;
-  color: white;
-  padding: 16px 32px;
-  text-decoration: none;
-  margin: 18px 2px;
-  cursor: pointer;
-  font-size: calc(8px + 3vmin);
-}
+

@@ -1,0 +1,11 @@
+.footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: large;
+    position: static;
+    max-height: 15vh;
+    width: 100%;
+    background-color: #383c44;
+    color: white;
+    text-align: center;
+}

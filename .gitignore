@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments
 /backend/.env
 /backend/.venv
+/frontend/rootfinder-app/env
 env/
 venv/
 ENV/

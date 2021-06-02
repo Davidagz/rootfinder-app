@@ -26,6 +26,7 @@ def find_roots(equation, variable):
 
         # for debugging
         print(solution)
+        print(solution_type)
 
         # known solutions
         if (conditions(solution_type)):
@@ -58,7 +59,7 @@ def get_latex(solution):
 def conditions(solution_type):
     if ('FiniteSet' in solution_type) or ('fancysets' in solution_type) or \
     ('ConditionSet' in solution_type) or \
-    ('emptyset' in solution_type):
+    ('emptyset' in solution_type) or ('Union' in solution_type):
         return True
     else:
         return False
