@@ -1,82 +1,40 @@
+.Page-Container {
+  position: relative;
+  min-height: 100vh;
+}
+
 .App {
   padding: 30px 30px 30px 30px;
   text-align: center;
+  max-width: 1200px;
+  margin: auto;
+  height: 70vh;
+  padding-bottom: 5rem;
 }
 
 .App-instructions {
   font-size: calc(9px + 1vmin);
-  color: white;
-}
-
-.App-form {
-  font-size: calc(20px + 3vmin);
-  color: white;
-  display: inline;
-  align-items: center;
-  justify-content: left;
-  text-align: left;
-}
-
-.App-results {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: black;
 }
 
-.App-error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: rgb(243, 8, 8);
-}
 
 .App-link {
   color: #61dafb;
 }
 
 .Info {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-height: 20vh;
 }
 
 .Info-text{
   color: black;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(5px + 1vmin);
 }
 
 .Info-header{
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  font-size: calc(10px + 3vmin);
+  padding-top: 10vh;
+  font-size: calc(5px + 2vmin);
   color: black;
 }
-
-
-input[type=text] {
-  font-size: medium;
-}
-
-input[type=text]::-webkit-input-placeholder { /* Safari, Chrome(, Opera?) */
- color:gray;
- font-style:italic;
-}
-input[type=text]:-moz-placeholder { /* Firefox 18- */
- color:gray;
- font-style:italic;
-}
-input[type=text]::-moz-placeholder { /* Firefox 19+ */
- color:gray;
- font-style:italic;
-}
-input[type=text]:-ms-input-placeholder { /* IE (10+?) */
- color:gray;
- font-style:italic;
-}
-

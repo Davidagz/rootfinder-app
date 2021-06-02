@@ -3,8 +3,7 @@ import './App.css';
 import Header from './components/header'
 import Footer from './components/footer/footer'
 import InputForm from './components/form'
-
-var Latex = require('react-latex');
+import Results from './components/result'
 
 class App extends React.Component {
   constructor(props) {
@@ -31,7 +30,7 @@ class App extends React.Component {
     let variable = this.state.variable;
     // check to make sure user input exists
     if (equation === null || equation === '' || variable === null || variable === ''){
-      this.setState({error: true, loading: false,
+      this.setState({error: true, loading: false, waitingOnUser: true,
       errorString: "No variable or equation found, please enter a variable and equation."})
     }
     // attempt API call
@@ -43,7 +42,7 @@ class App extends React.Component {
       // check to make sure we get back a 200 status response, if not we update the error message
       if (!response.ok){
         this.setState({errorString: "Unable to find solution, please check input formatting.",
-        loading: false, error: true});
+        loading: false, error: true, waitingOnUser: true});
       } else {
         const data = await response.json();
         console.log(data);
@@ -82,43 +81,39 @@ class App extends React.Component {
   }
 
   render() {
-    let waitingOnUser = this.state.waitingOnUser;
-    let error = this.state.error;
     return (
       <body>
-        <Header />
-        <div className="App">
-          <p className="App-instructions">Type in an equation to find the roots of,
-           with respect to a variable</p>
-          <InputForm handleSubmit={this.handleSubmit.bind(this)} onInputChange={this.handleChange.bind(this)}
-          value={this.value}
-          variable={this.variable} equation={this.equation}/>
-          <div className="App-results">
-            <p>{waitingOnUser ? '' : this.state.solutionString}</p>
-            <Latex>{waitingOnUser ? '' : this.state.result}</Latex>
-          </div>
-          <div className="App-error">
-            <p>{error ? this.state.errorString : ''}</p>
-          </div>
-          <div className="Info">
-            <header className="Info-header">
-            Instructions:
-            </header>
-            <p className="Info-text">
-              For syntax, exponents can be entered in the form x^y. The exponential function 
-              can be represented as just e and the logarithmic function can be represented as log(x). Division
-              can be represented with "/", use parenthesis accordingly. Currently upon division by zero,
-              an error will be thrown. <br/> <br/>
-              This app will find the roots (intersection of the equation with the X-axis) of any single-variable
-              equation using the <a href="https://www.sympy.org/en/index.html" target="_blank">Sympy</a> python library
-              There are three types of solutions: a finite set of possible solutions, an interval of valid solutions, 
-              or if there are no solutions found then a conditional set is shown of when solutions could exist. More 
-              documentation can be found <a href="https://docs.sympy.org/latest/tutorial/solvers.html" target="_blank">
-              here.</a>
+        <div className="Page-container">
+          <Header />
+          <div className="App">
+            <p className="App-instructions">Type in an equation to find the roots of,
+              with respect to a variable
             </p>
+            <div class="App-form">
+              <InputForm handleSubmit={this.handleSubmit.bind(this)} onInputChange={this.handleChange.bind(this)}
+              value={this.value} variable={this.variable} equation={this.equation}/>
+            </div>
+            <Results waitingOnUser={this.state.waitingOnUser} error={this.state.error} 
+            solutionString={this.state.solutionString} result={this.state.result} 
+            errorString={this.state.errorString}/>
+            <div className="Info">
+              <header className="Info-header">Instructions:</header>
+              <p className="Info-text">
+                For syntax, exponents can be entered in the form x^y. The exponential function 
+                can be represented as just e and the logarithmic function can be represented as log(x). Division
+                can be represented with "/", use parenthesis accordingly. Currently upon division by zero,
+                an error will be thrown. <br/> <br/>
+                This app will find the roots (intersection of the equation with the X-axis) of any polynomial
+                equation using the <a href="https://www.sympy.org/en/index.html" target="_blank">Sympy</a> python library
+                There are three types of solutions: a finite set of possible solutions, an interval of valid solutions, 
+                or if there are no solutions found then a conditional set is shown of when solutions could exist. More 
+                documentation can be found <a href="https://docs.sympy.org/latest/tutorial/solvers.html" target="_blank">
+                here.</a>
+              </p>
+            </div>
           </div>
+          <Footer />
         </div>
-        <Footer />
       </body>
     );
   }

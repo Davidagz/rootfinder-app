@@ -21,22 +21,25 @@ class InputForm extends React.Component {
     render() {
         return (
         <Form onkeydown="return even.key != 'Enter';">
-            <Row>
+            <Form.Row>
                 <Col>
                     <Form.Label>Equation</Form.Label>
-                    <Form.Control name="equation" value={this.value} placeholder="10x^2 - 3x^3" 
+                    <Form.Control name="equation" value={this.value} placeholder="ex: 10x^2 - 3x^3" 
                     onChange={this.handleChange} />
                 </Col>
-                <Col>
+                <Col xs={2}>
                     <Form.Label>Variable</Form.Label>
-                    <Form.Control name="variable" value={this.value} placeholder="x" 
-                    onChange={this.handleChange} />
-                    <Form.Text>Only works with alphabetic variables (a-z)</Form.Text>
+                    <Form.Control name="variable" value={this.value} placeholder="(a-z)" 
+                    onChange={this.handleChange} type="text" maxlength="1"/>
+                </Col>
+            </Form.Row>
+            <Row style={{ marginTop:10 }}>
+                <Col>
+                    <Button block size="sm" variant="outline-primary" onClick={this.props.handleSubmit}>
+                        Submit
+                    </Button>
                 </Col>
             </Row>
-            <Button block size="sm" variant="outline-primary" onClick={this.props.handleSubmit}>
-                Submit
-            </Button>
         </Form>
         );
 
